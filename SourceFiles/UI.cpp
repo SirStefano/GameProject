@@ -29,7 +29,7 @@ void Button::changeTexture(int x) {
 }
 
 void Button::buttonFunctions(sf::RenderWindow&window) {
-    ON_OFF = false;
+    ON_OFF = false; //tutaj problem 
 }
 
 void Button::close(sf::RenderWindow&window) {
