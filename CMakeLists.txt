@@ -6,7 +6,7 @@ set(SFML_STATIC_LIBRARIES TRUE)
 
 find_package(SFML 2 COMPONENTS graphics audio REQUIRED PATHS ./libraries/SFML-2.6.0/lib/cmake/SFML)
 
-set(SOURCE_FILES SourceFiles/Map.cpp SourceFiles/MainCharacter.cpp)
+set(SOURCE_FILES SourceFiles/Map.cpp SourceFiles/MainCharacter.cpp SourceFiles/UI.cpp)
 
 add_executable(my_app main.cpp ${SOURCE_FILES})
 

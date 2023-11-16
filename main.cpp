@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "Map.hpp"
 #include "MainCharacter.hpp"
+#include "UI.hpp"
 #include <ctime>
 
 int main()
@@ -28,20 +29,25 @@ int main()
         {
             if (event.type == sf::Event::Closed)
                 window.close();
-        }
+      }
 
         deltaTime = std::chrono::duration<double>(std::chrono::high_resolution_clock::now()-lastUpdateTime).count();
         lastUpdateTime += (std::chrono::high_resolution_clock::now()-lastUpdateTime);
 
 
-        //Character1.deadChecking(window, ourMap);
-        Character1.checkingKeyboard();
-        Character1.fallSystem(ourMap.getCoordinates(), deltaTime,view,window);
-        Character1.Moving(deltaTime, view, window);
-        window.clear();
-        ourMap.drawMap(window);
-        Character1.drawCharacter(window);
-        window.display();
+        if(Character1.deadChecking(window, ourMap)){
+            Button * buttons = new Button[2]{{"Exit"},{"Restart"}};
+            UI deadUI = UI(buttons, 2);
+            deadUI.waitForUser(window, ourMap);
+        }else {
+            Character1.checkingKeyboard();
+            Character1.fallSystem(ourMap.getCoordinates(), deltaTime, view, window);
+            Character1.Moving(deltaTime, view, window);
+            window.clear();
+            ourMap.drawMap(window);
+            Character1.drawCharacter(window);
+            window.display();
+        }
     }
     return 0;
 }

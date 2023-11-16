@@ -31,5 +31,5 @@ public:
     void checkingKeyboard();
     void Moving(double dt, sf::View & view, sf::RenderWindow & window);
     void fallSystem(int ** coordinates, double dt, sf::View & view, sf::RenderWindow & window);
-    void deadChecking(sf::RenderWindow & window, maps ourMap);
+    bool deadChecking(sf::RenderWindow & window, maps & ourMap);
 };

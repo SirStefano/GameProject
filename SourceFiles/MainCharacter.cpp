@@ -137,7 +137,7 @@ void MainCharacter::DodgeMove() {
     }
 }
 
-void MainCharacter::deadChecking(sf::RenderWindow & window, maps ourMap) {
+bool MainCharacter::deadChecking(sf::RenderWindow & window, maps & ourMap) {
     if(life == 0) {
         for(int i = 0; i<8; ++i) {
             MainCharacterS.setTexture(Dies[i]);
@@ -147,7 +147,10 @@ void MainCharacter::deadChecking(sf::RenderWindow & window, maps ourMap) {
             drawCharacter(window);
             window.display();
         }
+        _sleep(400);
+        return true;
     }
+    return false;
 }
 
 
