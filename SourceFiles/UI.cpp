@@ -29,7 +29,7 @@ void Button::changeTexture(int x) {
 }
 
 void Button::buttonFunctions(sf::RenderWindow&window) {
-
+    ON_OFF = false;
 }
 
 void Button::close(sf::RenderWindow&window) {
@@ -37,7 +37,6 @@ void Button::close(sf::RenderWindow&window) {
 }
 
 void Button::getOutFromWindow(sf::RenderWindow&window) {
-    ON_OFF = false;
 }
 
 UI::UI(Button * _buttons, int _numberOfButtons)
