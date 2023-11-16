@@ -32,4 +32,5 @@ public:
     void Moving(double dt, sf::View & view, sf::RenderWindow & window);
     void fallSystem(int ** coordinates, double dt, sf::View & view, sf::RenderWindow & window);
     bool deadChecking(sf::RenderWindow & window, maps & ourMap);
+    void changeLife(int x);
 };

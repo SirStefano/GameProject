@@ -28,8 +28,8 @@ void Button::changeTexture(int x) {
     buttonSprite.setTexture(textureToSprite[x]);
 }
 
-void Button::buttonFunctions(sf::RenderWindow&window) {
-    ON_OFF = false; //tutaj problem 
+void Button::buttonFunctions(sf::RenderWindow&window, UI * copyUI) {
+    copyUI->ON_OFF = false; //tutaj problem
 }
 
 void Button::close(sf::RenderWindow&window) {
@@ -39,7 +39,7 @@ void Button::close(sf::RenderWindow&window) {
 void Button::getOutFromWindow(sf::RenderWindow&window) {
 }
 
-UI::UI(Button * _buttons, int _numberOfButtons)
+UI::UI(Button * _buttons, int _numberOfButtons, sf::RenderWindow & window)
     :buttons(_buttons), numberOfButtons(_numberOfButtons) {
     toSprite.loadFromFile("../Assets/UI/OwnWindow/window.png");
     ownWindow.setTexture(toSprite);
@@ -54,7 +54,7 @@ UI::UI(Button * _buttons, int _numberOfButtons)
     ON_OFF = true;
 }
 
-void UI::waitForUser(sf::RenderWindow & window, maps & ourMap) {
+void UI::waitForUser(sf::RenderWindow & window, maps & ourMap, UI * copyUI) {
     while(ON_OFF) {
         sf::Event event;
         while (window.pollEvent(event))
@@ -63,7 +63,7 @@ void UI::waitForUser(sf::RenderWindow & window, maps & ourMap) {
                 window.close();
         }
         checkCursorPosition(window);
-        isButtonPressed(window);
+        isButtonPressed(window, copyUI);
         window.clear();
         ourMap.drawMap(window);
         drawUI(window);
@@ -93,16 +93,21 @@ void UI::checkCursorPosition(sf::RenderWindow & window) {
     cursor.setPosition(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y);
 }
 
-void UI::isButtonPressed(sf::RenderWindow & window) {
+void UI::isButtonPressed(sf::RenderWindow & window, UI * copyUI) {
     for(int i = 0; i<numberOfButtons; ++i) {
         if(buttons[i].getPosition().x <= (sf::Mouse::getPosition().x+8) && (buttons[i].getPosition().x + 256) >= (sf::Mouse::getPosition().x-8) &&
             buttons[i].getPosition().y <= (sf::Mouse::getPosition().y+8) && (buttons[i].getPosition().y + 128) >= (sf::Mouse::getPosition().y-8)) {
             buttons[i].changeTexture(1);
+            if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
+                buttons[i].buttonFunctions(window,copyUI);
+            }
         }else {
             buttons[i].changeTexture(0);
         }
     }
 }
+
+
 
 
 

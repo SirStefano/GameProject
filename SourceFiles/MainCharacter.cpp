@@ -153,6 +153,11 @@ bool MainCharacter::deadChecking(sf::RenderWindow & window, maps & ourMap) {
     return false;
 }
 
+void MainCharacter::changeLife(int x) {
+    life += x;
+}
+
+
 
 
 

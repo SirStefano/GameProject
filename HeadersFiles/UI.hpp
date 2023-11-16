@@ -3,6 +3,8 @@
 #include <string>
 #include "./Map.hpp"
 
+class UI;
+
 class Button{
 private:
     sf::Texture textureToSprite[2];
@@ -15,7 +17,7 @@ public:
     sf::Vector2i getPosition();
     void changeTexture(int x);
 
-    void buttonFunctions(sf::RenderWindow & window);
+    void buttonFunctions(sf::RenderWindow & window, UI * copyUI);
     void close(sf::RenderWindow & window);
     void getOutFromWindow(sf::RenderWindow & window);
 };
@@ -34,12 +36,14 @@ private:
 
     bool ON_OFF;
 
-    void isButtonPressed(sf::RenderWindow & window);
+    void isButtonPressed(sf::RenderWindow & window, UI * copyUI);
 
-    friend void Button::buttonFunctions(sf::RenderWindow & window);
 public:
-    UI(Button * _buttons, int _numberOfButtons);
-    void waitForUser(sf::RenderWindow & window, maps & ourMap);
+    UI(Button * _buttons, int _numberOfButtons, sf::RenderWindow & window);
+
+    void waitForUser(sf::RenderWindow & window, maps & ourMap, UI * copyUI);
     void drawUI(sf::RenderWindow & window);
     void checkCursorPosition(sf::RenderWindow & window);
+
+    friend void Button::buttonFunctions(sf::RenderWindow & window, UI * copyUI);
 };

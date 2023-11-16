@@ -37,8 +37,10 @@ int main()
 
         if(Character1.deadChecking(window, ourMap)){
             Button * buttons = new Button[2]{{"Exit"},{"Restart"}};
-            UI deadUI = UI(buttons, 2);
-            deadUI.waitForUser(window, ourMap);
+            UI deadUI = UI(buttons, 2, window);
+            UI * copyUI = &deadUI;
+            deadUI.waitForUser(window, ourMap, copyUI);
+            Character1.changeLife(10);
         }else {
             Character1.checkingKeyboard();
             Character1.fallSystem(ourMap.getCoordinates(), deltaTime, view, window);
