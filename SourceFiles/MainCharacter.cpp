@@ -161,6 +161,11 @@ void MainCharacter::changeLife(int x) {
     life += x;
 }
 
+void MainCharacter::setPosition(int x, int y) {
+    MainCharacterS.setPosition(x, y);
+}
+
+
 
 
 

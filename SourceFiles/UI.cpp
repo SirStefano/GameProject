@@ -1,5 +1,6 @@
 #include "../HeadersFiles/UI.hpp"
 #include <iostream>
+#include <bits/fs_fwd.h>
 
 Button::Button(std::string _buttonName)
     :buttonName(_buttonName){
@@ -29,14 +30,20 @@ void Button::changeTexture(int x) {
 }
 
 void Button::buttonFunctions(sf::RenderWindow&window, UI * copyUI) {
-    copyUI->ON_OFF = false; //tutaj problem
+    if(buttonName=="Exit") {
+        close(window);
+    }else if(buttonName=="Restart") {
+        getOutFromWindow(&(copyUI->ON_OFF));
+    }
 }
 
 void Button::close(sf::RenderWindow&window) {
     window.close();
+    exit(0);
 }
 
-void Button::getOutFromWindow(sf::RenderWindow&window) {
+void Button::getOutFromWindow(bool * toTurnOff) {
+    *(toTurnOff) = false;
 }
 
 UI::UI(Button * _buttons, int _numberOfButtons, sf::RenderWindow & window)
@@ -108,6 +115,15 @@ void UI::isButtonPressed(sf::RenderWindow & window, UI * copyUI) {
         }
     }
 }
+
+void UI::setBasics(sf::RenderWindow&window, sf::View&view, MainCharacter&character) {
+    character.changeLife(10);
+    view.move(currenPosition.x*(-1), currenPosition.y*(-1));
+    window.setView(view);
+    character.setPosition(928, 8*64);
+    currenPosition = sf::Vector2f(0,0);
+}
+
 
 
 

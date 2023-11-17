@@ -33,4 +33,5 @@ public:
     void fallSystem(int ** coordinates, double dt, sf::View & view, sf::RenderWindow & window, sf::Vector2f & changePosition);
     bool deadChecking(sf::RenderWindow & window, maps & ourMap);
     void changeLife(int x);
+    void setPosition(int x, int y);
 };

@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include "./Map.hpp"
+#include "./MainCharacter.hpp"
 
 class UI;
 
@@ -10,6 +11,9 @@ private:
     sf::Texture textureToSprite[2];
     sf::Sprite buttonSprite;
     std::string buttonName;
+
+    void close(sf::RenderWindow & window);
+    void getOutFromWindow(bool * toTurnOff);
 public:
     Button(std::string _buttonName);
     void setPosition(int x, int y);
@@ -18,8 +22,6 @@ public:
     void changeTexture(int x);
 
     void buttonFunctions(sf::RenderWindow & window, UI * copyUI);
-    void close(sf::RenderWindow & window);
-    void getOutFromWindow(sf::RenderWindow & window);
 };
 
 class UI{
@@ -46,6 +48,8 @@ public:
     void waitForUser(sf::RenderWindow & window, maps & ourMap, UI * copyUI);
     void drawUI(sf::RenderWindow & window);
     void checkCursorPosition(sf::RenderWindow & window);
+
+    void setBasics(sf::RenderWindow & window, sf::View & view, MainCharacter & character);
 
     friend void Button::buttonFunctions(sf::RenderWindow & window, UI * copyUI);
 };

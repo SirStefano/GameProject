@@ -42,16 +42,16 @@ int main()
             UI deadUI = UI(buttons, 2, window);
             UI * copyUI = &deadUI;
             deadUI.waitForUser(window, ourMap, copyUI);
-            Character1.changeLife(10);
-        }else {
-            Character1.checkingKeyboard();
-            Character1.fallSystem(ourMap.getCoordinates(), deltaTime, view, window, UI::currenPosition);
-            Character1.Moving(deltaTime, view, window, UI::currenPosition);
-            window.clear();
-            ourMap.drawMap(window);
-            Character1.drawCharacter(window);
-            window.display();
+            deadUI.setBasics(window, view, Character1);
         }
+        Character1.checkingKeyboard();
+        Character1.fallSystem(ourMap.getCoordinates(), deltaTime, view, window, UI::currenPosition);
+        Character1.Moving(deltaTime, view, window, UI::currenPosition);
+        window.clear();
+        ourMap.drawMap(window);
+        Character1.drawCharacter(window);
+        window.display();
+
     }
     return 0;
 }
