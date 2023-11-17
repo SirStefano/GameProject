@@ -39,6 +39,8 @@ private:
     void isButtonPressed(sf::RenderWindow & window, UI * copyUI);
 
 public:
+    static sf::Vector2f currenPosition;
+
     UI(Button * _buttons, int _numberOfButtons, sf::RenderWindow & window);
 
     void waitForUser(sf::RenderWindow & window, maps & ourMap, UI * copyUI);

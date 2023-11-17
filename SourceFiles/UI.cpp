@@ -45,14 +45,16 @@ UI::UI(Button * _buttons, int _numberOfButtons, sf::RenderWindow & window)
     ownWindow.setTexture(toSprite);
     toCursor.loadFromFile("../Assets/UI/Gears/Cursor.png");
     cursor.setTexture(toCursor);
-    cursor.setPosition(1920/2, 1080/2);
+    cursor.setPosition(currenPosition.x + 1920/2, currenPosition.y + 1080/2);
     sf::Mouse::setPosition(sf::Vector2i(1920/2, 1080/2));
-    ownWindow.setPosition(1920/2-400/2, 1080/2-640/2);
+    ownWindow.setPosition(currenPosition.x + 1920/2-400/2, currenPosition.y + 1080/2-640/2);
     for(int i = 0; i<numberOfButtons; ++i) {
-        buttons[i].setPosition(1920/2-256/2, 266+i*210);
+        buttons[i].setPosition(currenPosition.x + 1920/2-256/2, currenPosition.y + 266+i*210);
     }
     ON_OFF = true;
 }
+
+sf::Vector2f UI::currenPosition = sf::Vector2f(0,0);
 
 void UI::waitForUser(sf::RenderWindow & window, maps & ourMap, UI * copyUI) {
     while(ON_OFF) {
@@ -90,13 +92,13 @@ void UI::checkCursorPosition(sf::RenderWindow & window) {
     }else if(sf::Mouse::getPosition(window).y > 1080/2 + 320 - 16) {
         sf::Mouse::setPosition(sf::Vector2i(sf::Mouse::getPosition(window).x, 1080/2 + 320 - 16));
     }
-    cursor.setPosition(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y);
+    cursor.setPosition(currenPosition.x+sf::Mouse::getPosition(window).x, currenPosition.y+sf::Mouse::getPosition(window).y);
 }
 
 void UI::isButtonPressed(sf::RenderWindow & window, UI * copyUI) {
     for(int i = 0; i<numberOfButtons; ++i) {
-        if(buttons[i].getPosition().x <= (sf::Mouse::getPosition().x+8) && (buttons[i].getPosition().x + 256) >= (sf::Mouse::getPosition().x-8) &&
-            buttons[i].getPosition().y <= (sf::Mouse::getPosition().y+8) && (buttons[i].getPosition().y + 128) >= (sf::Mouse::getPosition().y-8)) {
+        if(buttons[i].getPosition().x - currenPosition.x <= (sf::Mouse::getPosition().x+8) && (buttons[i].getPosition().x - currenPosition.x + 256) >= (sf::Mouse::getPosition().x-8) &&
+            buttons[i].getPosition().y -  currenPosition.y <= (sf::Mouse::getPosition().y+8) && (buttons[i].getPosition().y - currenPosition.y + 128) >= (sf::Mouse::getPosition().y-8)) {
             buttons[i].changeTexture(1);
             if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
                 buttons[i].buttonFunctions(window,copyUI);

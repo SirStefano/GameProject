@@ -53,16 +53,19 @@ void MainCharacter::checkingKeyboard() {
     }
 }
 
-void MainCharacter::Moving(double dt, sf::View & view, sf::RenderWindow & window) {
+void MainCharacter::Moving(double dt, sf::View & view, sf::RenderWindow & window, sf::Vector2f & changePosition) {
     if(right >= 1) {
+        changePosition.x += (100*dt);
         Move(view, window, 100*dt, 0);
         right--;
     }
     if(up>0) {
+        changePosition.y += -(up*dt);
         Move(view, window, 0, -(up*dt));
         up--;
     }
     if(left >= 1) {
+        changePosition.x += -(100*dt);
         Move(view, window, -(100*dt),0);
         left--;
     }
@@ -84,13 +87,14 @@ void MainCharacter::Move(sf::View & view, sf::RenderWindow & window, float x, fl
     window.setView(view);
 }
 
-void MainCharacter::fallSystem(int ** coordinates, double dt, sf::View & view, sf::RenderWindow & window) {
+void MainCharacter::fallSystem(int ** coordinates, double dt, sf::View & view, sf::RenderWindow & window, sf::Vector2f & changePosition) {
     sf::Vector2f toTransfer = MainCharacterS.getPosition();
     int xBack = (((int)toTransfer.x)+15)/64;
     int xFront = (((int)toTransfer.x)+64-15)/64;
     int y = (((int)toTransfer.y+128)/64);
     if(coordinates[xBack][y]==414 && coordinates[xFront][y]==414) {
         isFallSystemWorking = true;
+        changePosition.y += (200*dt);
         MainCharacterS.move(0,200*dt);
         view.move(0, 200*dt);
         window.setView(view);

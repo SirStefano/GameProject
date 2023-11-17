@@ -4,6 +4,7 @@
 #include "MainCharacter.hpp"
 #include "UI.hpp"
 #include <ctime>
+#include <iostream>
 
 int main()
 {
@@ -20,6 +21,7 @@ int main()
 
     while (window.isOpen())
     {
+        std::cout<<UI::currenPosition.x<<" "<<UI::currenPosition.y<<std::endl;
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
             window.create(sf::VideoMode(1920, 1080), "Game");
         }
@@ -43,8 +45,8 @@ int main()
             Character1.changeLife(10);
         }else {
             Character1.checkingKeyboard();
-            Character1.fallSystem(ourMap.getCoordinates(), deltaTime, view, window);
-            Character1.Moving(deltaTime, view, window);
+            Character1.fallSystem(ourMap.getCoordinates(), deltaTime, view, window, UI::currenPosition);
+            Character1.Moving(deltaTime, view, window, UI::currenPosition);
             window.clear();
             ourMap.drawMap(window);
             Character1.drawCharacter(window);

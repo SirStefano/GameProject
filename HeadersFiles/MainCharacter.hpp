@@ -29,8 +29,8 @@ public:
     MainCharacter();
     void drawCharacter(sf::RenderWindow & window);
     void checkingKeyboard();
-    void Moving(double dt, sf::View & view, sf::RenderWindow & window);
-    void fallSystem(int ** coordinates, double dt, sf::View & view, sf::RenderWindow & window);
+    void Moving(double dt, sf::View & view, sf::RenderWindow & window, sf::Vector2f & changePosition);
+    void fallSystem(int ** coordinates, double dt, sf::View & view, sf::RenderWindow & window, sf::Vector2f & changePosition);
     bool deadChecking(sf::RenderWindow & window, maps & ourMap);
     void changeLife(int x);
 };
