@@ -5,13 +5,17 @@
 #include "UI.hpp"
 #include <ctime>
 #include <iostream>
+#include <SFML/Audio.hpp>
 
 int main()
 {
     sf::RenderWindow window;
     window.setFramerateLimit(120);
     window.create(sf::VideoMode(), "Game", sf::Style::Fullscreen);
-    sf::View view(sf::FloatRect(0,0,1920,1080));//ogarnąć po powrocie
+    sf::View view(sf::FloatRect(0,0,1920,1080));
+    /*sf::Music basicMusic;
+    basicMusic.openFromFile("./Assets/Sounds/Music/2.ogg");
+    basicMusic.play();*/
 
     maps ourMap = maps(120, 40);
     MainCharacter Character1 = MainCharacter();
@@ -21,7 +25,6 @@ int main()
 
     while (window.isOpen())
     {
-        std::cout<<UI::currenPosition.x<<" "<<UI::currenPosition.y<<std::endl;
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
             window.create(sf::VideoMode(1920, 1080), "Game");
         }
@@ -46,7 +49,7 @@ int main()
         }
         Character1.checkingKeyboard();
         Character1.fallSystem(ourMap.getCoordinates(), deltaTime, view, window, UI::currenPosition);
-        Character1.Moving(deltaTime, view, window, UI::currenPosition);
+        Character1.Moving(deltaTime, view, window, UI::currenPosition, ourMap.getCoordinates());
         window.clear();
         ourMap.drawMap(window);
         Character1.drawCharacter(window);

@@ -22,6 +22,7 @@ private:
     void AttackMove();
     void CrouchingMove();
     void DodgeMove();
+    bool collisionSystem(int ** coordinates, bool x, bool y);
 
     bool isFallSystemWorking;
     int life;
@@ -29,7 +30,7 @@ public:
     MainCharacter();
     void drawCharacter(sf::RenderWindow & window);
     void checkingKeyboard();
-    void Moving(double dt, sf::View & view, sf::RenderWindow & window, sf::Vector2f & changePosition);
+    void Moving(double dt, sf::View & view, sf::RenderWindow & window, sf::Vector2f & changePosition, int ** coordinates);
     void fallSystem(int ** coordinates, double dt, sf::View & view, sf::RenderWindow & window, sf::Vector2f & changePosition);
     bool deadChecking(sf::RenderWindow & window, maps & ourMap);
     void changeLife(int x);

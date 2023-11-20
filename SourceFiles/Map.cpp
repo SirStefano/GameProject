@@ -28,6 +28,11 @@ maps::maps(int _width, int _height){
         coordinates[i][10] = 0;
     }
     coordinates[30][10] = 414; //do usunięcia
+    coordinates[20][9] = 0;
+    coordinates[20][8] = 0;
+
+    coordinates[25][6] = 0;
+    coordinates[45][2] = 0;
 }
 maps::~maps(){
     for(int i = 0; i<width; ++i){

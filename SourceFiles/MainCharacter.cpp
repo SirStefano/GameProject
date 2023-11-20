@@ -53,16 +53,24 @@ void MainCharacter::checkingKeyboard() {
     }
 }
 
-void MainCharacter::Moving(double dt, sf::View & view, sf::RenderWindow & window, sf::Vector2f & changePosition) {
+void MainCharacter::Moving(double dt, sf::View & view, sf::RenderWindow & window, sf::Vector2f & changePosition, int ** coordinates) {
     if(right >= 1) {
-        changePosition.x += (100*dt);
-        Move(view, window, 100*dt, 0);
-        right--;
+        if(collisionSystem(coordinates, true, false)) {
+            right = 0;
+        }else {
+            changePosition.x += (100*dt);
+            Move(view, window, 100*dt, 0);
+            right--;
+        }
     }
     if(up>0) {
-        changePosition.y += -(up*dt);
-        Move(view, window, 0, -(up*dt));
-        up--;
+        if(collisionSystem(coordinates, false, true)) {
+            up = 0;
+        }else {
+            changePosition.y += -(up*dt);
+            Move(view, window, 0, -(up*dt));
+            up--;
+        }
     }
     if(left >= 1) {
         changePosition.x += -(100*dt);
@@ -164,6 +172,26 @@ void MainCharacter::changeLife(int x) {
 void MainCharacter::setPosition(int x, int y) {
     MainCharacterS.setPosition(x, y);
 }
+
+bool MainCharacter::collisionSystem(int ** coordinates, bool x, bool y) {
+    sf::Vector2f toTransfer = MainCharacterS.getPosition();
+    int xBack = (toTransfer.x+10)/64;
+    int xFront = (toTransfer.x+64-10)/64;
+    int yLow = (toTransfer.y+64)/64;
+    int yHigh = (toTransfer.y+30)/64;
+    if(y) {
+        if(coordinates[xBack][yHigh] != 414 || coordinates[xFront][yHigh] != 414) {
+            return true;
+        }
+    }
+    if(x) {
+        if(coordinates[xFront][yLow] != 414 || coordinates[xFront][yHigh] != 414) {
+            return true;
+        }
+    }
+    return false;
+}
+
 
 
 
