@@ -2,7 +2,8 @@
 #include <string>
 #include <iostream>
 
-maps::maps(int _width, int _height){
+maps::maps(int _width, int _height, NPC _crug){
+    crug = _crug;
     width = _width;
     height = _height;
     coordinates = new int * [width];
@@ -40,7 +41,7 @@ maps::~maps(){
     }
 }
 
-void maps::drawMap(sf::RenderWindow & window) {
+void maps::drawMap(sf::RenderWindow & window, sf::Vector2f characterPosition) {
     int x;
     for(int i = 0; i<width; ++i) {
         for(int ii = 0; ii<height; ++ii) {
@@ -51,8 +52,13 @@ void maps::drawMap(sf::RenderWindow & window) {
             }
         }
     }
+    crug.automaticlyMoving(window, characterPosition);
 }
 
 int** maps::getCoordinates() {
     return coordinates;
+}
+
+sf::Vector2f maps::NPCpositionBroker() {
+    return crug.getPosition();
 }

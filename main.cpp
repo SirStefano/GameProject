@@ -6,6 +6,7 @@
 #include <ctime>
 #include <iostream>
 #include <SFML/Audio.hpp>
+#include "NPC.hpp"
 
 int main()
 {
@@ -17,7 +18,8 @@ int main()
     basicMusic.openFromFile("./Assets/Sounds/Music/2.ogg");
     basicMusic.play();*/
 
-    maps ourMap = maps(120, 40);
+    NPC crug = NPC();
+    maps ourMap = maps(120, 40, crug);
     MainCharacter Character1 = MainCharacter();
 
     double deltaTime = 0.0;
@@ -49,9 +51,9 @@ int main()
         }
         Character1.checkingKeyboard();
         Character1.fallSystem(ourMap.getCoordinates(), deltaTime, view, window, UI::currenPosition);
-        Character1.Moving(deltaTime, view, window, UI::currenPosition, ourMap.getCoordinates());
+        Character1.Moving(deltaTime, view, window, UI::currenPosition, ourMap.getCoordinates(), ourMap.NPCpositionBroker());
         window.clear();
-        ourMap.drawMap(window);
+        ourMap.drawMap(window, Character1.getPosition());
         Character1.drawCharacter(window);
         window.display();
 

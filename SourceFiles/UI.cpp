@@ -74,7 +74,7 @@ void UI::waitForUser(sf::RenderWindow & window, maps & ourMap, UI * copyUI) {
         checkCursorPosition(window);
         isButtonPressed(window, copyUI);
         window.clear();
-        ourMap.drawMap(window);
+        ourMap.drawMap(window, sf::Vector2f(0,0));
         drawUI(window);
         window.display();
     }

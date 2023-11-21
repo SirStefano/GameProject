@@ -53,9 +53,9 @@ void MainCharacter::checkingKeyboard() {
     }
 }
 
-void MainCharacter::Moving(double dt, sf::View & view, sf::RenderWindow & window, sf::Vector2f & changePosition, int ** coordinates) {
+void MainCharacter::Moving(double dt, sf::View & view, sf::RenderWindow & window, sf::Vector2f & changePosition, int ** coordinates, sf::Vector2f crugPosition) {
     if(right >= 1) {
-        if(collisionSystem(coordinates, true, false)) {
+        if(collisionSystem(coordinates, true, false, crugPosition)) {
             right = 0;
         }else {
             changePosition.x += (100*dt);
@@ -64,7 +64,7 @@ void MainCharacter::Moving(double dt, sf::View & view, sf::RenderWindow & window
         }
     }
     if(up>0) {
-        if(collisionSystem(coordinates, false, true)) {
+        if(collisionSystem(coordinates, false, true, crugPosition)) {
             up = 0;
         }else {
             changePosition.y += -(up*dt);
@@ -155,7 +155,7 @@ bool MainCharacter::deadChecking(sf::RenderWindow & window, maps & ourMap) {
             MainCharacterS.setTexture(Dies[i]);
             _sleep(400);
             window.clear();
-            ourMap.drawMap(window);
+            ourMap.drawMap(window, getPosition());
             drawCharacter(window);
             window.display();
         }
@@ -173,7 +173,7 @@ void MainCharacter::setPosition(int x, int y) {
     MainCharacterS.setPosition(x, y);
 }
 
-bool MainCharacter::collisionSystem(int ** coordinates, bool x, bool y) {
+bool MainCharacter::collisionSystem(int ** coordinates, bool x, bool y, sf::Vector2f crugPosition) {
     sf::Vector2f toTransfer = MainCharacterS.getPosition();
     int xBack = (toTransfer.x+10)/64;
     int xFront = (toTransfer.x+64-10)/64;
@@ -189,8 +189,18 @@ bool MainCharacter::collisionSystem(int ** coordinates, bool x, bool y) {
             return true;
         }
     }
+    if(MainCharacterS.getPosition().x+54>=crugPosition.x && MainCharacterS.getPosition().x+53<=crugPosition.x) {
+        if(MainCharacterS.getPosition().y+64>=crugPosition.y) {
+            return true;
+        }
+    }
     return false;
 }
+
+sf::Vector2f MainCharacter::getPosition() {
+    return MainCharacterS.getPosition();
+}
+
 
 
 
