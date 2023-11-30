@@ -1,1 +1,1 @@
-YEY
+First try with SFML library
